@@ -11,6 +11,11 @@ const routes = [
     name: 'addContact',
     component: () => import('../views/AddContactView.vue'),
   },
+  {
+    path: '/contacts',
+    name: 'contacts',
+    component: () => import('../views/ContactsDetailsView.vue'),
+  },
 ];
 
 const router = createRouter({
