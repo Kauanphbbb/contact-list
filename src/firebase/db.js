@@ -57,6 +57,10 @@ async function addContact(contactId, name, phone, email, picUrl) {
   };
 }
 
+function deleteContact(contactId) {
+  set(ref(db, `contacts/${contactId}`), null);
+}
+
 function generateId() {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
@@ -65,4 +69,5 @@ export default {
   addContact,
   generateId,
   getAll,
+  deleteContact,
 };

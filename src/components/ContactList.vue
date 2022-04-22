@@ -11,8 +11,8 @@
         <span>{{contact.email}}</span>
         <span>{{contact.phone}}</span>
         <div class="buttons-container">
-          <button class="button-edit" @click="editContact(contact)">Edit</button>
-          <button class="delete-button" @click="deleteContact(contact)">Delete</button>
+          <button class="button-edit" @click="editContact(contact.id)">Edit</button>
+          <button class="delete-button" @click="deleteContact(contact.id)">Delete</button>
         </div>
       </li>
     </ul>
@@ -23,11 +23,38 @@
 </template>
 
 <script>
+import db from '@/firebase/db';
+import Swal from 'sweetalert2';
+
 export default {
   name: 'ContactList',
+
   props: {
     title: String,
     contacts: { Array, default: () => [] },
+  },
+
+  methods: {
+    deleteContact(id) {
+      try {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            db.deleteContact(id);
+            window.location.reload();
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 };
 </script>
