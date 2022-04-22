@@ -9,7 +9,7 @@
 import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
-  name: 'ContactsView',
+  name: 'HomeView',
   components: {
     HelloWorld,
   },

@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/ContactsView.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'contacts',
-    component: HomeView,
+    name: 'home',
+    component: () => import('../views/HomeView.vue'),
   },
   {
     path: '/addContact',

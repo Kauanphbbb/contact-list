@@ -1,7 +1,8 @@
 <template>
   <nav>
-    <router-link to="/">Contact List</router-link> |
-    <router-link to="/addContact">Add contact</router-link>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/addContact">Add contact</router-link> |
+    <router-link to="/contacts">Contacts</router-link>
   </nav>
   <router-view/>
 </template>
