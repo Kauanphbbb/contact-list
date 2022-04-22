@@ -2,21 +2,24 @@
   <div class="about">
     <h1>Add Contact</h1>
     <form v-on:submit.prevent="addContact()">
+    <p v-if="errMessage.length > 0">
+      {{errMessage}}
+    </p>
       <label for="name">
         Name:
-        <input type="text" id="name" v-model="name">
+        <input required type="text" id="name" v-model="name">
       </label>
       <label for="email">
         Email:
-        <input type="email" id="email" v-model="email">
+        <input required type="email" id="email" v-model="email">
       </label>
       <label for="phone">
         Phone:
-        <input type="tel" id="phone" v-model="phone">
+        <input required type="tel" id="phone" v-model="phone" maxlength="9" v-maska="'####-####'">
       </label>
       <label for="picUrl">
         Picture URL:
-        <input type="url" id="picUrl" v-model="picUrl">
+        <input required type="url" id="picUrl" v-model="picUrl">
       </label>
       <button  type="submit">Add Contact</button>
     </form>
@@ -33,16 +36,18 @@ export default {
       name: '',
       email: '',
       phone: '',
-      picUrl: '',
+      picUrl: 'https://randomuser.me/api/portraits/men/72.jpg',
+      errMessage: '',
     };
   },
   methods: {
-    addContact() {
+    async addContact() {
       try {
-        db.addContact(1, this.name, this.email, this.phone, this.picUrl);
+        const id = db.generateId();
+        await db.addContact(id, this.name, this.email, this.phone, this.picUrl);
         this.$router.push('/');
       } catch (err) {
-        console.error(err);
+        this.errMessage = err.message;
       }
     },
   },
@@ -63,5 +68,9 @@ button {
   border: 1px solid #ccc;
   border-radius: 3px;
   cursor: pointer;
+}
+
+p {
+  color: red;
 }
 </style>

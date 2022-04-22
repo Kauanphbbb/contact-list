@@ -4,12 +4,15 @@ import {
 
 const db = getDatabase();
 
-function checkEmailAndPhone(email, phone) {
-  const snapshot = query(ref(db, 'contacts'), orderByChild('email'), equalTo(email));
+async function checkEmailAndPhone(email, phone) {
+  const snapshot = await get(query(ref(db, 'contacts'), orderByChild('email'), equalTo(email)));
+  console.log(snapshot.exists());
   if (snapshot.exists()) {
     return true;
   }
-  const snapshot2 = query(ref(db, 'contacts'), orderByChild('phone'), equalTo(phone));
+  const snapshot2 = await get(query(ref(db, 'contacts'), orderByChild('phone'), equalTo(phone)));
+  console.log(snapshot2.val());
+
   if (snapshot2.exists()) {
     return true;
   }
@@ -31,8 +34,8 @@ async function getAll() {
   return [];
 }
 
-function addContact(contactId, name, phone, email, picUrl) {
-  const check = checkEmailAndPhone(email, phone);
+async function addContact(contactId, name, phone, email, picUrl) {
+  const check = await checkEmailAndPhone(email, phone);
 
   if (check) {
     throw new Error('Email or phone already exists');

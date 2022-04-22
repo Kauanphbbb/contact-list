@@ -5,7 +5,7 @@
     <ul class="contact-list" v-if="contacts.length > 0">
       <li v-for="contact in contacts" :key="contact.id">
       <div class="profile-pic">
-        <img :src="contact.picture" alt="profile picture">
+        <img :src="contact.picUrl" alt="profile picture">
       </div>
         <span>{{contact.name}}</span>
         <span>{{contact.email}}</span>
