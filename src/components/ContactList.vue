@@ -2,7 +2,7 @@
   <div class="contact-home">
     <h1>{{title}}</h1>
 
-    <ul class="contact-list">
+    <ul class="contact-list" v-if="contacts.length > 0">
       <li v-for="contact in contacts" :key="contact.id">
       <div class="profile-pic">
         <img :src="contact.picture" alt="profile picture">
@@ -16,6 +16,9 @@
         </div>
       </li>
     </ul>
+    <h3 v-else>
+      No contacts yet.
+    </h3>
   </div>
 </template>
 
@@ -24,7 +27,7 @@ export default {
   name: 'ContactList',
   props: {
     title: String,
-    contacts: Array,
+    contacts: { Array, default: () => [] },
   },
 };
 </script>
